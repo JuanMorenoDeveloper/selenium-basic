@@ -23,7 +23,7 @@ class FindmochajsTest {
   @BeforeAll
   static void setUp() {
     System.setProperty("webdriver.chrome.driver",
-        "/home/juan/Downloads/chromedriver_linux64/chromedriver");
+        "/opt/chromedriver_linux64/chromedriver");
     driver = new ChromeDriver();
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
@@ -36,11 +36,16 @@ class FindmochajsTest {
 
   @Test
   void findmochajs() {
+    //Arrange/Preparación
     driver.get("https://www.google.com/");
     driver.manage().window().setSize(new Dimension(1312, 741));
+
+    //Act/Acción
     driver.findElement(By.xpath("//input[@name=\'q\']")).sendKeys("mochajs");
     driver.findElement(By.name("q")).sendKeys(Keys.ENTER);
     driver.findElement(By.cssSelector("div:nth-child(1) > .rc .LC20lb > span")).click();
+
+    //Assertion/Verificación
     assertThat(driver.findElement(By.id("sponsors")).getText()).isEqualTo("SPONSORS");
   }
 }
